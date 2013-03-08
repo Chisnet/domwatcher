@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Element Watcher Example / Tests</title>
+        <script type="text/javascript" src="jquery.js"></script>
+        <script type="text/javascript" src="watcher.js"></script>
+        <script type="text/javascript">
+            function setRandomBg(){
+                var letters = '0123456789ABCDEF'.split('');
+                var color = '#', color2 = '#';
+                for (var i = 0; i < 6; i++ ) {
+                    color += letters[Math.round(Math.random() * 15)];
+                    color2 += letters[Math.round(Math.random() * 15)];
+                }
+                $('#container').css('background',color);
+                $('#container2').css('background',color2);
+            }
+            function neglect2() {
+                $('#container2').domwatcher('neglect');
+            }
+            $(function(){
+                $('#container').domwatcher('watch',function(){
+                    $('#container').append('<span>.</span>');
+                });
+                $('#container2').domwatcher('watch',function(){
+                    $('#container2').append('<span>.</span>');
+                });
+            });
+        </script>
+        <style type="text/css">
+            div {
+                color: white;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="container" style="width: 100%; height: 200px;"></div>
+        <div id="container2" style="width: 100%; height: 200px;"></div>
+        <input type="button" value="Trigger" onclick="setRandomBg()"/>
+        <input type="button" value="Neglect" onclick="neglect2()"/>
+    </body>
+</html>
